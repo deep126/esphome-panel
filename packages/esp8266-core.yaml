@@ -20,6 +20,11 @@ esp8266:
   board: nodemcuv2
   restore_from_flash: True
 
+sensor:
+  - platform: uptime
+    name: Uptime
+    entity_category: diagnostic
+
 text_sensor:
   - platform: template
     name: Device ID
