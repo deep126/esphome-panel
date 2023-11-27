@@ -1,0 +1,33 @@
+esphome:
+  name: ${name}
+  name_add_mac_suffix: True
+  friendly_name: ${friendly_name}
+  project:
+    name: $project_name
+    version: $project_version
+  on_boot:
+    priority: -100.0
+    then:
+      - wait_until:
+          api.connected:
+      - logger.log: API is connected!
+      - rtttl.play: "success:d=24,o=5,b=100:c,g,b"
+      - text_sensor.template.publish:
+          id: device_id
+          state: !lambda 'return get_mac_address();'
+
+esp8266:
+  board: nodemcuv2
+  restore_from_flash: True
+
+text_sensor:
+  - platform: template
+    name: Device ID
+    id: device_id
+    entity_category: diagnostic
+    update_interval: never
+
+button:
+  - platform: restart
+    name: "${friendly_name} Restart"
+    entity_category: config
