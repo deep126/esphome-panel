@@ -1,0 +1,83 @@
+substitutions:
+
+  ####
+  # NAME
+  # By default, the name of the ESPHome device is "alarm-panel-pro-xxxxxx" where xxxxxx is a unique identifier. The device's
+  # hostname on your network is also defined by the name, defaulting to "alarm-panel-pro-xxxxxx.local". Edit this variable to
+  # customize the name and hostname. Note: only lowercase characters, numbers and hyphen(-) are allowed.
+  project_name: deep126.esp8266-nodemcuv2-panel
+  project_version: "0.0.1"
+
+  ####
+  # SETTINGS
+  sensor_debounce_time: 200ms
+  sensor_delayed_off_time: 5s
+  warning_beep_pulse_time: 100ms
+  warning_beep_pause_time: 130ms
+  warning_beep_internal_only: "false"
+  blink_on_state: "true"
+  status_led_inverted: "true"
+
+  ####
+  # PIN MAPPING
+  
+  # LED CONTROL
+  # GPIO2, TXD1
+  # Output only
+  # Restricted if high on boot
+  # Weak Pull Up
+  status_led: D4
+
+  # BUZZER
+  # GPIO1, TX, TXD0
+  buzzer1: GPIO1
+
+  # GENERAL PURPOSE GPIO
+  # GPIO0, FLASH
+  # Restricted if high on boot
+  # Weak Pull Up
+  sensor1: D3
+  # GPIO4, SDA
+  sensor2: D2
+  # GPIO5, SCL
+  sensor3: D1
+  # GPIO6, CLK, SCLK, SDCLK
+  # Weak Pull Up
+  sensor4: GPIO6
+  # GPIO12, HMISO
+  # Weak Pull Up
+  sensor5: D6
+  # GPIO13, CTSO, HMOSI
+  # Weak Pull Up
+  sensor6: D7
+  # GPIO14, HSCLK
+  # Weak Pull Up
+  sensor7: D5
+  # GPIO15, RTS0, HCS
+  # Restricted if low on boot
+  # Weak Pull Up
+  sensor8: D8
+  # GPIO16, wake
+  # Has pull-down (but no pull-up) resistor
+  # Weak Pull Down
+  sensor9: D0
+
+  # INPUT ONLY PINS
+  # A0, ADC0
+  # Analog input only
+  input: A0
+  # GPIO3, RX, RXD0
+  input1: D9
+
+  # I2C
+  # GPIO9, SDD2
+  # sdapin: GPIO9
+  # GPIO10, SDD3
+  # sclpin: GPIO10
+
+packages:
+  remote_package:
+    url: http://github.com/deep126/esphome-panel
+    ref: master
+    refresh: 5min
+    file: packages/core-esp8266.yaml
