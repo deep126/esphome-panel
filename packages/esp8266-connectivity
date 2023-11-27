@@ -1,0 +1,40 @@
+####
+# CONNECTIVITY
+# Enables the built-in web server for viewing the device state, internals and controls via web browser
+web_server:
+  include_internal: true
+
+# Enable logging
+logger:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+
+improv_serial:
+
+captive_portal:
+
+sensor:
+  - platform: wifi_signal
+    name: WiFi Signal RSSI
+    id: wifi_signal_db
+    entity_category: diagnostic
+
+  - platform: copy
+    source_id: wifi_signal_db
+    id: wifi_signal_pct
+    name: WiFi Signal %
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: IP Address
+      entity_category: diagnostic
